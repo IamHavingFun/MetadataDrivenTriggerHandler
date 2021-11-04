@@ -1,0 +1,62 @@
+{
+    "name": "metadata-driven-trigger-handler",
+    "private": true,
+    "version": "1.0.0",
+    "description": "Salesforce App",
+    "scripts": {
+        "lint": "eslint **/lwc/**/*.js",
+        "prettier": "prettier --write \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
+        "prettier:verify": "prettier --list-different \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
+        "prettier:apex:local": "prettier --apex-standalone-parser built-in --write \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
+        "prettier:verify:apex:local": "prettier --apex-standalone-parser built-in --list-different \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
+        "apexdocs": "apexdocs-generate -c apexDocsConfig.json -o false -p global public private protected namespaceaccessible -s force-app/main/default/classes && rm docs/index.md",
+        "apex:local:start": "node node_modules/prettier-plugin-apex/bin/start-apex-server.js",
+        "apex:local:stop": "node node_modules/prettier-plugin-apex/bin/stop-apex-server.js",
+        "test:unit": "sfdx-lwc-jest --skipApiVersionCheck",
+        "test:unit:watch": "sfdx-lwc-jest --watch --skipApiVersionCheck",
+        "test:unit:debug": "sfdx-lwc-jest --debug --skipApiVersionCheck",
+        "test:unit:coverage": "sfdx-lwc-jest --coverage --skipApiVersionCheck",
+        "postinstall": "husky install",
+        "precommit": "npm run apexdocs && lint-staged"
+    },
+    "lint-staged": {
+        "**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}": [
+            "prettier --write"
+        ],
+        "**/lwc/**/*.js": [
+            "eslint"
+        ],
+        "**/lwc/**": [
+            "sfdx-lwc-jest --skipApiVersionCheck -- --bail --findRelatedTests"
+        ]
+    },
+    "author": "salesforce.com",
+    "license": "CC0-1.0",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/trailheadapps/apex-recipes"
+    },
+    "devDependencies": {
+        "@cparra/apexdocs": "^1.13.6",
+        "@lwc/eslint-plugin-lwc": "^1.1.0",
+        "@prettier/plugin-xml": "^1.1.0",
+        "@sa11y/jest": "^3.0.1",
+        "@salesforce/eslint-config-lwc": "^3.0.0",
+        "@salesforce/eslint-plugin-aura": "^2.0.0",
+        "@salesforce/eslint-plugin-lightning": "^0.1.1",
+        "@salesforce/sfdx-lwc-jest": "^1.1.0",
+        "eslint": "^7.32.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-import": "^2.25.2",
+        "eslint-plugin-jest": "^25.0.1",
+        "husky": "^7.0.4",
+        "jest-canvas-mock": "^2.3.1",
+        "lint-staged": "^11.2.6",
+        "prettier": "^2.4.1",
+        "prettier-plugin-apex": "^1.10.0"
+    },
+    "volta": {
+        "node": "14.17.3",
+        "npm": "6.14.13"
+    }
+}
