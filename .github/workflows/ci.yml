@@ -53,9 +53,6 @@ jobs:
               if: always()
               run: npm run apex:local:stop
 
-            # Lint LWC
-            - name: 'Lint Lightning Web Components'
-              run: npm run lint
     scratch-org-test:
         runs-on: ubuntu-latest
         needs: format-lint-lwc-tests
