@@ -139,7 +139,7 @@ jobs:
               with:
                   path: 'force-app/main/default/staticresources/documentation/docs/docs'
               env:
-                  GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.BOT_ACCESS_TOKEN }}
+                  GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
 
     trigger-packaging:
         runs-on: ubuntu-latest
