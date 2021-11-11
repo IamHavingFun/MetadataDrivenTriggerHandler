@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-
 # TriggerHandler class
 
 An opinionated trigger handler framework. Originally by Kevin O&apos;Hara github.com/kevinohara80/sfdc-trigger-framework
@@ -11,21 +10,18 @@ An opinionated trigger handler framework. Originally by Kevin O&apos;Hara github
 AccountTriggerHandler, PlatformEventRecipesTriggerHandler
 
 ---
-
 ## Constructors
-
 ### `TriggerHandler()`
 
-## Constructs a trigger handler object and ensures the context is set
-
+Constructs a trigger handler object and ensures the context is set
+---
 ## Enums
-
 ### TriggerContext
+
 
 possible trigger contexts
 
 ---
-
 ## Properties
 
 ### `bypassedHandlers` → `Set<String>`
@@ -37,12 +33,10 @@ possible trigger contexts
 ### `loopCountMap` → `Map<String, LoopCount>`
 
 ---
-
 ## Methods
-
 ### `addToLoopCount()` → `void`
 
-increment the loop count @exception Throws loop count exception if the max loop count is reached
+increment the loop count @exception   Throws loop count exception if the max loop count is reached
 
 ### `afterDelete()` → `void`
 
@@ -74,16 +68,15 @@ Virtual method for the implementing class to override
 
 ### `bypass(String handlerName)` → `void`
 
-Allows developers to conditionally bypass (disable) other triggers that _also_ implement this triggerHandler
+Allows developers to conditionally bypass (disable) other triggers that *also* implement this triggerHandler
 
 #### Parameters
 
-| Param         | Description                                          |
-| ------------- | ---------------------------------------------------- |
-| `handlerName` | Class name (String) of the trigger handler to bypass |
+| Param | Description |
+| ----- | ----------- |
+|`handlerName` |  Class name (String) of the trigger handler to bypass |
 
 #### Example
-
 ```java
 TriggerHandler.bypass('AccountTriggerHandler');
 ```
@@ -93,7 +86,6 @@ TriggerHandler.bypass('AccountTriggerHandler');
 removes all classes from the bypass list
 
 #### Example
-
 ```java
 Triggerhandler.clearAllBypasses();
 ```
@@ -104,12 +96,11 @@ Removes a given trigger handler class name from the list of bypassed trigger han
 
 #### Parameters
 
-| Param         | Description                                       |
-| ------------- | ------------------------------------------------- |
-| `handlerName` | Handler class name to remove from the bypass list |
+| Param | Description |
+| ----- | ----------- |
+|`handlerName` |  Handler class name to remove from the bypass list |
 
 #### Example
-
 ```java
 TriggerHandler.clearBypass('AccountTriggerHandler');
 ```
@@ -119,7 +110,6 @@ TriggerHandler.clearBypass('AccountTriggerHandler');
 Allows developers to turn off the max loop count
 
 #### Example
-
 ```java
 In the context of a TriggerHandler class,
 this.clearMaxLoopCount();
@@ -145,9 +135,9 @@ Allows developers to check whether a given trigger handler class is currently by
 
 #### Parameters
 
-| Param         | Description                                        |
-| ------------- | -------------------------------------------------- |
-| `handlerName` | The name of the trigger handler class to check for |
+| Param | Description |
+| ----- | ----------- |
+|`handlerName` |  The name of the trigger handler class to check for |
 
 #### Return
 
@@ -160,7 +150,6 @@ Boolean
 `Boolean`
 
 #### Example
-
 ```java
 TriggerHandler.isBypassed('AccountTriggerHandler');
 ```
@@ -170,7 +159,6 @@ TriggerHandler.isBypassed('AccountTriggerHandler');
 This is main brokering method that is called by the trigger. It&apos;s responsible for determining the proper context, and calling the correct method
 
 #### Example
-
 ```java
 AccountTriggerHandler.run();
 ```
@@ -181,12 +169,11 @@ Allows developers to prevent trigger loops, or allow a limited number of them by
 
 #### Parameters
 
-| Param | Description                                           |
-| ----- | ----------------------------------------------------- |
-| `max` | A valid number (generally 1) of times you&apos;d like |
+| Param | Description |
+| ----- | ----------- |
+|`max` |    A valid number (generally 1) of times you&apos;d like |
 
 #### Example
-
 ```java
 In the context of a TriggerHandler class,
 this.setMaxLoopCount(5);
@@ -202,10 +189,10 @@ Internal method for manually setting the trigger context
 
 #### Parameters
 
-| Param      | Description                               |
-| ---------- | ----------------------------------------- |
-| `ctx`      | The current trigger Context               |
-| `testMode` | Is the trigger running in a test context? |
+| Param | Description |
+| ----- | ----------- |
+|`ctx` |       The current trigger Context |
+|`testMode` |  Is the trigger running in a test context? |
 
 ### `validateRun()` → `Boolean`
 
@@ -222,7 +209,6 @@ Boolean
 `Boolean`
 
 ---
-
 ## Inner Classes
 
 ### TriggerHandler.LoopCount class
@@ -230,25 +216,20 @@ Boolean
 inner class for managing the loop count per handler
 
 ---
-
 #### Constructors
-
 ##### `LoopCount()`
 
 Loop counter method with default of 5.
-
 ##### `LoopCount(Integer max)`
 
 Sets loop count based on the param.
-
 ###### Parameters
 
-| Param | Description                       |
-| ----- | --------------------------------- |
-| `max` | Maximum number of loops to allow. |
+| Param | Description |
+| ----- | ----------- |
+|`max` |    Maximum number of loops to allow. |
 
 ---
-
 #### Properties
 
 ##### `count` → `Integer`
@@ -256,9 +237,7 @@ Sets loop count based on the param.
 ##### `max` → `Integer`
 
 ---
-
 #### Methods
-
 ##### `exceeded()` → `Boolean`
 
 Determines if this we&apos;re about to exceed the loop count.
@@ -321,12 +300,11 @@ Sets the max loop size
 
 ###### Parameters
 
-| Param | Description                |
-| ----- | -------------------------- |
-| `max` | The integer to set max to. |
+| Param | Description |
+| ----- | ----------- |
+|`max` |    The integer to set max to. |
 
 ---
-
 ### TriggerHandler.TriggerHandlerException class
 
 Internal TriggerHandler custom exception class
