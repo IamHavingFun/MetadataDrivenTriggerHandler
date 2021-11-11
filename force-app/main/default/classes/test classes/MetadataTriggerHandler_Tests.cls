@@ -10,9 +10,13 @@ private class MetadataTriggerHandler_Tests {
 
         stub.track(stubbedGetMetatdataRecords);
 
-        MetadataTriggerHandler mdtHandler = new MetadataTriggerHandler(
-            (MetadataTriggerService) stub.generate()
-        );
+        // MetadataTriggerHandler mdtHandler = new MetadataTriggerHandler(
+        //     (MetadataTriggerService) stub.generate()
+        // );
+
+        MetadataTriggerService.testOverrideObjectType = 'Account';
+        MetadataTriggerHandler mdtHandler = MetadataTriggerHandler.getInstance()
+            .setMTS((MetadataTriggerService) stub.generate());
 
         mdtHandler.setTriggerContext('after update', true);
 
@@ -24,6 +28,34 @@ private class MetadataTriggerHandler_Tests {
             null,
             mdtHandler.activeHandler,
             'Expected the activeHandler Property to be null, as no handlers were returned.'
+        );
+    }
+
+    @isTest
+    static void testMetadataTriggerHandlerNoOppWithoutRecordsNegative() {
+        TestDouble stub = new TestDouble(MetadataTriggerService.class);
+        TestDouble.Method stubbedGetMetatdataRecords = new TestDouble.Method(
+                'getMetadataTriggers'
+            )
+            .returning(new List<Metadata_Driven_Trigger__mdt>());
+
+        stub.track(stubbedGetMetatdataRecords);
+
+        Boolean didCatchProperException = false;
+        Test.startTest();
+        try {
+            MetadataTriggerHandler mdtHandler = MetadataTriggerHandler.getInstance()
+                .setMTS((MetadataTriggerService) stub.generate());
+        } catch (MetadataTriggerService.MetadataTriggerServiceException mtse) {
+            if (mtse.getMessage().containsIgnoreCase('are both null')) {
+                didCatchProperException = true;
+            }
+        }
+        Test.stopTest();
+
+        System.assert(
+            didCatchProperException,
+            'Expect to have caught an exception without overriding object type'
         );
     }
 

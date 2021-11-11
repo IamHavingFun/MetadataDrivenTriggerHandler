@@ -1,7 +1,10 @@
 public with sharing class MetadataTriggerService {
+    private String objType = '';
+    @testVisible
+    private static String testOverrideObjectType;
+
     public class MetadataTriggerServiceException extends Exception {
     }
-    private String objType = '';
 
     public MetadataTriggerService(String objectTypeName) {
         this.objType = objectTypeName;
@@ -58,13 +61,16 @@ public with sharing class MetadataTriggerService {
      * @return      `String`
      */
     public static String getSObjectType() {
+        if (testOverrideObjectType != null) {
+            return testOverrideObjectType;
+        }
         if (Trigger.new != null) {
             return Trigger.new[0].getSObjectType().getDescribe().getName();
         } else if (Trigger.old != null) {
             return Trigger.old[0].getSObjectType().getDescribe().getName();
         }
         throw new MetadataTriggerServiceException(
-            'Trigger.new && Trigger.old are both null. Are you excercising this method outside of a trigger context?'
+            'Trigger.new && Trigger.old are both null. Are you exercising this method outside of a trigger context?'
         );
     }
 }
